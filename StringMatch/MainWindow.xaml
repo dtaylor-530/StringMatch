@@ -1,0 +1,43 @@
+﻿<Window x:Class="StringMatch.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:p="http://propertytools.org/wpf"
+        xmlns:local="clr-namespace:StringMatch"
+                xmlns:md="https://github.com/fantasticfiasco/mvvm-dialogs"
+        md:DialogServiceViews.IsRegistered="True" 
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+
+
+
+    <DockPanel>
+        <!-- File Menu -->
+        <Menu DockPanel.Dock="Top" Margin="0,0,0.4,0">
+            <MenuItem Header="File"/>
+
+            <MenuItem Header="About" Command="{Binding ShowAboutDialogCmd}"/>
+
+            <MenuItem Header="Settings" >
+            
+            </MenuItem>
+
+
+       
+        </Menu>
+
+
+        <!--<local:StatusBarUserControl DataContext="{Binding }" DockPanel.Dock="Bottom"></local:StatusBarUserControl>-->
+
+        <local:HeaderUserControl DataContext="{Binding }" DockPanel.Dock="Top"/>
+
+        <local:BodyUserControl DataContext="{Binding }" DockPanel.Dock="Top"/>
+
+
+    </DockPanel>
+    
+    
+  
+  
+</Window>

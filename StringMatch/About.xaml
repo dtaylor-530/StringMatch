@@ -1,0 +1,24 @@
+﻿<Window x:Class="StringMatch.About"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StringMatch"
+        mc:Ignorable="d"
+        Title="About" Height="300" Width="300">
+
+    <Grid>
+        <StackPanel>
+            <TextBlock TextAlignment="Center" Text="{Binding Content}" />
+            <TextBlock TextAlignment="Center" Text="{Binding VersionText}" Margin="0,40,0,0" />
+            <Label Content="Description" FontWeight="Bold" Margin="0,40,0,0"/>
+            <!--<TextBlock   TextAlignment="Center" TextWrapping="Wrap"  Text="{x:Static prop:Resources.AboutDescription}"  />-->
+            <!--<TextBlock TextAlignment="Center"   Text="{x:Static prop:Resources.OrginsationChartLink}"  />
+                <Label Content="Controls Source" Margin="0,40,0,0"  FontWeight="Bold"/>
+                <TextBlock TextAlignment="Center"     Text="{x:Static prop:Resources.PixelLab_Bot_GitHub}"  />-->
+        </StackPanel>
+
+    </Grid>
+    <!--xmlns:prop="clr-namespace:TennisOddsScaper.View.Properties"-->
+    </Window>
+

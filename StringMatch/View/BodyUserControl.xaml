@@ -1,0 +1,267 @@
+﻿<UserControl x:Class="StringMatch.BodyUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:StringMatch"
+             xmlns:p="http://propertytools.org/wpf"
+             xmlns:scroll="clr-namespace:SoftwareArchitects.Windows.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+
+
+    <UserControl.Resources>
+
+
+
+                <Style TargetType="ScrollViewer">
+                    <Setter Property="scroll:ScrollSynchronizer.ScrollGroup" Value="Group1" />
+                </Style>
+       
+            
+            
+            <Style x:Key="righttabs"  TargetType="{x:Type TabItem}">
+            <Setter Property="HeaderTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <ContentPresenter Content="{TemplateBinding Content}">
+                            <ContentPresenter.LayoutTransform>
+                                <RotateTransform Angle="90" />
+                            </ContentPresenter.LayoutTransform>
+                        </ContentPresenter>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Padding" Value="3" />
+        </Style>
+        <Style x:Key="lefttabs" TargetType="{x:Type TabItem}">
+            <Setter Property="HeaderTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <ContentPresenter Content="{TemplateBinding Content}">
+                            <ContentPresenter.LayoutTransform>
+                                <RotateTransform Angle="-90" />
+                            </ContentPresenter.LayoutTransform>
+                        </ContentPresenter>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Padding" Value="3" />
+        </Style>
+
+
+        <local:StringToBrushConverter x:Key="stringToBrush" />
+        <Style x:Key="MaleFemaleStyle" TargetType="DataGridCell">
+            <Setter Property="Background" Value="{Binding Path=Gender, Converter={StaticResource stringToBrush}}" />
+        </Style>
+        
+    </UserControl.Resources>
+    <Grid>
+
+
+        <Grid.RowDefinitions>
+            <!--<RowDefinition Height="100"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>-->
+        </Grid.RowDefinitions>
+
+
+
+
+        
+        <TabControl>
+            <TabItem Header="Main" FontWeight="Bold" MinWidth="80">
+                <Grid>
+
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="3*"/>
+
+                    </Grid.ColumnDefinitions>
+
+                    <TabControl  TabStripPlacement="Left">
+                        <TabItem Header="Original"    FontWeight="Bold"  Style="{StaticResource lefttabs}">
+
+                            <ListBox Name="dg144"  Margin="6"   
+                  scroll:ScrollSynchronizer.ScrollGroup="Group1"
+                  ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                  ItemsSource="{Binding SourceData}"  />
+           
+               </TabItem>
+                        <!--<TabItem Header="UnMatched" FontWeight="Bold"  Style="{StaticResource lefttabs}">
+
+                            <ListBox Name="dg133"  Margin="6"   
+      
+                  ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                  ItemsSource="{Binding SourceData}"  />
+
+                        </TabItem>
+                        <TabItem Header="Matched" Width="30"  Height="100" FontWeight="Bold"  Style="{StaticResource lefttabs}">
+
+                            <ListBox Name="dg134"  Margin="6"   
+
+                  ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                  ItemsSource="{Binding SourceData}"  />
+
+                        </TabItem>-->
+                        </TabControl>
+
+                    <TabControl  TabStripPlacement="Right"  Grid.Column="1">
+
+                        <!--<TabControl.Resources>
+                            <Style TargetType="{x:Type TabItem}">
+                                <Setter Property="HeaderTemplate">
+                                    <Setter.Value>
+                                        <DataTemplate>
+                                            <ContentPresenter Content="{TemplateBinding Content}">
+                                                <ContentPresenter.LayoutTransform>
+                                                    <RotateTransform Angle="90" />
+                                                </ContentPresenter.LayoutTransform>
+                                            </ContentPresenter>
+                                        </DataTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Padding" Value="3" />
+                            </Style>
+                        </TabControl.Resources>-->
+                        <TabItem Header="Original"   Style="{StaticResource righttabs}">
+                            <ListBox Name="dg4"  
+                  ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                  ItemsSource="{Binding TargetData}" />
+                        </TabItem>
+
+                        <TabItem Header="UnMatched"  Style="{StaticResource righttabs}">
+                            <ListBox Name="dg2"  
+                  ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                  ItemsSource="{Binding UnMatchedData}" />
+                        </TabItem>
+
+                        <TabItem Header="Potential Matches"  Style="{StaticResource righttabs}">
+                            <DataGrid Name="dgPotential" Grid.Column="1"   ColumnWidth="*"    ItemsSource="{Binding PotentialMatchData}" AutoGenerateColumns="False"
+                                     CanUserAddRows="False" GridLinesVisibility="Horizontal"
+                                                       scroll:ScrollSynchronizer.ScrollGroup="Group1"
+                        IsReadOnly="true"  
+                                      PreviewMouseDown="dgPotential_PreviewMouseDown"
+                                      PreviewMouseDoubleClick="DataGrid_MouseDoubleClick" IsSynchronizedWithCurrentItem="true" 
+                                CellEditEnding="dataGrid_CellEditEnding"  CurrentCellChanged="dataGrid_CurrentCellChanged"
+                                      >
+                                <DataGrid.Columns>
+                                <DataGridCheckBoxColumn Width="*" Header="IsMatch" Binding="{Binding IsMatch,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                <!--<DataGridTextColumn Width="*" Header="Source" Foreground="DarkCyan" Binding="{Binding Source}"/>-->
+                                <DataGridTextColumn Width="*" Header="Match1" Binding="{Binding Match1}"/>
+                                    <DataGridTextColumn Foreground="DarkGray" Width="*" Header="Match2" Binding="{Binding Match2}"/>
+                                    <DataGridTextColumn Foreground="DarkGray" Width="*" Header="Match3" Binding="{Binding Match3}"/>
+                                    <DataGridTextColumn Foreground="DarkGray" Width="*" Header="Match4" Binding="{Binding Match4}"/>
+                                    <DataGridTextColumn Foreground="DarkGray" Width="*" Header="Match5" Binding="{Binding Match5}"/>
+                                    <DataGridTextColumn Foreground="DarkGray" Width="*" Header="Match6" Binding="{Binding Match6}"/>
+                                    <DataGridTextColumn Foreground="DarkGray" Width="*" Header="Match7" Binding="{Binding Match7}"/>
+                                    </DataGrid.Columns>
+
+                                        <!--CellStyle="{StaticResource MaleFemaleStyle}"-->
+                                <!--SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}" SelectionUnit="Cell"-->
+                                <!--<DataGrid.CellStyle>
+                                    <Style TargetType="DataGridCell">
+                                        <EventSetter Event="PreviewMouseDown" Handler="b1SetColor"/>
+                                    </Style>
+                                </DataGrid.CellStyle>-->
+                                <!--<DataGrid.RowDetailsTemplate>
+                                    <DataTemplate>
+                                        --><!--<TextBlock Text="{Binding Details}" Margin="10" />--><!--
+                                    </DataTemplate>
+                                </DataGrid.RowDetailsTemplate>-->
+                                
+                            </DataGrid>
+                        </TabItem>
+
+
+    
+
+                    </TabControl>
+
+
+
+                </Grid>
+
+
+
+
+
+            </TabItem>
+
+
+            <TabItem Header="Output" FontWeight="Bold" MinWidth="80">
+                <DataGrid Name="dg5" Grid.Column="1"   ColumnWidth="*" 
+                              scroll:ScrollSynchronizer.ScrollGroup="Group1"
+                                      ColumnHeaderHeight="0"
+                  ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                  ItemsSource="{Binding MatchedData.DefaultView}" >
+                    <!--<DataGrid.RowDetailsTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Details}" Margin="10" />
+                        </DataTemplate>
+                    </DataGrid.RowDetailsTemplate>-->
+                </DataGrid>
+            </TabItem>
+            <TabItem Header="Settings" Height="30"  FontWeight="Bold" MinWidth="80">
+                <p:PropertyGrid  SelectedObject="{Binding }" />
+            </TabItem>
+
+        </TabControl>
+
+
+
+
+
+        <!--<UniformGrid Grid.Column="1"  Rows="1"  >
+            <p:PropertyGrid SelectedObject="{Binding ElementName=dg1, Path=SelectedItem.Odds}"/>
+
+        </UniformGrid>-->
+
+        <!--<DataGrid Grid.Row="1" Grid.Column="1" VerticalScrollBarVisibility="Auto" ItemsSource="{Binding OutputTable.DefaultView}"/>-->
+
+
+        <!--<DataGrid  Margin="2" Grid.Row="2" Grid.Column="1"  ColumnWidth="*" 
+                   ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                   ScrollViewer.HorizontalScrollBarVisibility="Auto"  
+                   ItemsSource="{Binding ElementName=dg1, Path=SelectedItem.OddsTable}">
+            <DataGrid.Resources>
+                <Style x:Key="DataGridBase" TargetType="Control">
+                    <Setter Property="LayoutTransform">
+                        <Setter.Value>
+                            <TransformGroup>
+                                <RotateTransform Angle="-90" />
+                                <ScaleTransform ScaleX="1" ScaleY="-1" />
+                            </TransformGroup>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="TextOptions.TextFormattingMode" Value="Display" />
+                </Style >
+                <Style TargetType="DataGridCell" BasedOn="{StaticResource DataGridBase}"/>
+                <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource DataGridBase}"/>
+                <Style TargetType="DataGridRowHeader" BasedOn="{StaticResource DataGridBase}"/>
+            </DataGrid.Resources>
+
+            <DataGrid.LayoutTransform>
+                <TransformGroup>
+                    <RotateTransform Angle="90" />
+                    <MatrixTransform Matrix="-1, 0, 0, 1, 0, 0" />
+                </TransformGroup>
+            </DataGrid.LayoutTransform>
+            <DataGrid.RowDetailsTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <StackPanel.LayoutTransform>
+                            <TransformGroup>
+                                <RotateTransform Angle="90" />
+                                <MatrixTransform Matrix="-1, 0, 0, 1, 0, 0" />
+                            </TransformGroup>
+                        </StackPanel.LayoutTransform>
+                        <TextBlock Height="100" Text="Binding Image" />
+                    </StackPanel>
+                </DataTemplate>
+            </DataGrid.RowDetailsTemplate>
+        </DataGrid>-->
+
+    </Grid>
+</UserControl>
