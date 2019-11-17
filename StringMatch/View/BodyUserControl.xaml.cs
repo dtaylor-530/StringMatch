@@ -71,14 +71,11 @@ namespace StringMatch
                 catch { }
             }
 
-
                 (dgPotential.GetCell(p.Value.X, 0).Content as CheckBox).IsChecked = true;
-
         }
 
         private void dgPotential_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-
             DependencyObject dep = (DependencyObject)e.OriginalSource;
 
              var p = DataGridHelpers.GetTableIndices(dep);
@@ -87,10 +84,6 @@ namespace StringMatch
                 {
                     (dgPotential.GetCell(p.Value.X, 0).Content as CheckBox).IsChecked = !(dgPotential.GetCell(p.Value.X, 0).Content as CheckBox).IsChecked;
                 }
-
-
-
-
         }
     }
 }

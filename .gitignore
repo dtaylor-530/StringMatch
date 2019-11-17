@@ -297,3 +297,7 @@ __pycache__/
 *.btm.cs
 *.odx.cs
 *.xsd.cs
+/FuzzyString.CoreApp/Data/BetClicNames.csv
+/FuzzyString.CoreApp/Data/LeagueNamesSource.csv
+/FuzzyString.CoreApp/Data/output.csv
+/FuzzyString.CoreApp/Data/Output.txt

@@ -8,7 +8,11 @@
                 xmlns:md="https://github.com/fantasticfiasco/mvvm-dialogs"
         md:DialogServiceViews.IsRegistered="True" 
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="350" Width="525"
+        >
+    <Window.DataContext>
+        <local:MainViewModel></local:MainViewModel>
+    </Window.DataContext>
 
 
 
@@ -16,15 +20,8 @@
         <!-- File Menu -->
         <Menu DockPanel.Dock="Top" Margin="0,0,0.4,0">
             <MenuItem Header="File"/>
-
             <MenuItem Header="About" Command="{Binding ShowAboutDialogCmd}"/>
-
-            <MenuItem Header="Settings" >
-            
-            </MenuItem>
-
-
-       
+            <MenuItem Header="Settings" />
         </Menu>
 
 
@@ -33,7 +30,6 @@
         <local:HeaderUserControl DataContext="{Binding }" DockPanel.Dock="Top"/>
 
         <local:BodyUserControl DataContext="{Binding }" DockPanel.Dock="Top"/>
-
 
     </DockPanel>
     

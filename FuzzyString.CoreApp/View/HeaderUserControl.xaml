@@ -1,0 +1,47 @@
+﻿<UserControl x:Class="StringMatch.HeaderUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:StringMatch"
+             mc:Ignorable="d" 
+             d:DesignHeight="40" d:DesignWidth="700">
+    <Grid>
+        <!--<ToolBarTray>-->
+            <ToolBar   Grid.Row="0" Margin="5">
+                <!--<Button Name="Login"  Command="{Binding MatchCommand}"  Style="{StaticResource ReactiveButton}" Content="Login" ></Button>-->
+                <Button Name="BtnGetNewInfo" Command="{Binding MatchCommand}"   Content="Match"/>
+                <!--<Button Name="sdfs" Command="{Binding TestCommand}"  Style="{StaticResource ReactiveButton}" Content="Test"/>
+                <Button Name="Save" Command="{Binding SaveCommand}"  Style="{StaticResource ReactiveButton}" Content="Save"/>-->
+            </ToolBar>
+            <!--<ToolBar>
+                <Button Name="BtnGetNewInfo2" Command="{Binding OpenSourceCommand}"  Style="{StaticResource ReactiveButton}" Content="Open Source"/>
+                <TextBox Width="120" Text="{Binding SourceFile}"></TextBox>
+                <Button Name="BtnGetNewInf3" Command="{Binding OpenTargetCommand}"  Style="{StaticResource ReactiveButton}" Content="Open Target"/>
+                <TextBox Width="120" Text="{Binding TargetFile}"></TextBox>
+            </ToolBar>-->
+        <!--</ToolBarTray>-->
+    
+
+         
+            <!--<Button Name="BtnPutToDb" Command="{Binding TransferToDBCommand}"  Style="{StaticResource ReactiveButton}"  Content="Send to Data Base"/>
+            --><!--<Button Name="BtnCreateXml"  Command="{Binding CreateXmlCommand}" Style="{StaticResource ReactiveButton}"  Content="Send to XML"/>--><!--
+            <Button Name="BtnOutput" Command="{Binding OutputToCsvCommand}" Style="{StaticResource ReactiveButton}" Content=" Calculate -> CSV"/>
+            --><!--<Button Name="BtnScrapeCompetitions" Command="{Binding ScrapeCompetitions}" Style="{StaticResource ReactiveButton}" Content=" Calculate -> CSV"/>--><!--
+            <Label Content="Cumulative Profits" FontSize="10"></Label>
+            <TextBlock Name="tblkBettingPot" Text="{Binding CumulativeProfit}" FontSize="10" />
+
+            <Label Content="pc at Risk" FontSize="10"></Label>
+            <TextBlock Name="tblpcAtRisk" Text="{Binding PcAtRisk}" FontSize="10" />
+
+            --><!--<Button Name="FolderDialog" Click="BtnfolderOpen_Click" Content="Save Directory"  Style="{StaticResource ReactiveButton}"/>--><!--
+            <TextBox Name="Textfolder" Width="100" Text="{Binding FolderPath}"/>
+            <ComboBox Name="ComboBox" StaysOpenOnEdit="True" IsEditable="True"   Width="100" Height="20" >
+                <TextBlock>Home/Away</TextBlock>
+                <TextBlock>Asian Handicap</TextBlock>
+                <TextBlock>Over/Under</TextBlock>
+            </ComboBox>-->
+
+
+    </Grid>
+</UserControl>

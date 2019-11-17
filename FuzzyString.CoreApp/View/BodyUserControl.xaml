@@ -1,0 +1,294 @@
+﻿<UserControl x:Class="StringMatch.BodyUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:StringMatch"
+             xmlns:p="http://propertytools.org/wpf"
+             xmlns:scroll="clr-namespace:SoftwareArchitects.Windows.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+
+
+    <UserControl.Resources>
+
+
+
+        <Style TargetType="ScrollViewer">
+            <Setter Property="scroll:ScrollSynchronizer.ScrollGroup" Value="Group1" />
+        </Style>
+
+
+
+        <Style x:Key="righttabs"  TargetType="{x:Type TabItem}">
+            <Setter Property="HeaderTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <ContentPresenter Content="{TemplateBinding Content}">
+                            <ContentPresenter.LayoutTransform>
+                                <RotateTransform Angle="90" />
+                            </ContentPresenter.LayoutTransform>
+                        </ContentPresenter>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Padding" Value="3" />
+        </Style>
+        <Style x:Key="lefttabs" TargetType="{x:Type TabItem}">
+            <Setter Property="HeaderTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <ContentPresenter Content="{TemplateBinding Content}">
+                            <ContentPresenter.LayoutTransform>
+                                <RotateTransform Angle="-90" />
+                            </ContentPresenter.LayoutTransform>
+                        </ContentPresenter>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Padding" Value="3" />
+        </Style>
+
+
+        <local:StringToBrushConverter x:Key="stringToBrush" />
+
+        <Style x:Key="MaleFemaleStyle" TargetType="DataGridCell">
+            <Setter Property="Background" Value="{Binding Path=Gender, Converter={StaticResource stringToBrush}}" />
+        </Style>
+
+    </UserControl.Resources>
+    <Grid>
+
+
+        <Grid.RowDefinitions>
+            <!--<RowDefinition Height="100"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>-->
+        </Grid.RowDefinitions>
+
+
+
+
+
+        <TabControl>
+            <TabItem Header="Main" FontWeight="Bold" MinWidth="80">
+                <Grid>
+
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1.4*"/>
+                        <ColumnDefinition Width="3*"/>
+
+                    </Grid.ColumnDefinitions>
+
+                    <TabControl  TabStripPlacement="Left">
+                        <TabItem Header="Original"    FontWeight="Bold"  Style="{StaticResource lefttabs}">
+                            <Grid >
+                                <ScrollViewer  VerticalScrollBarVisibility="Auto">
+                                    <ItemsControl Name="dg144"  Width="200" HorizontalContentAlignment="Left" HorizontalAlignment="Left"   ItemsSource="{Binding SourceData}"  >
+
+                                    </ItemsControl>
+                                </ScrollViewer>
+                            </Grid>
+                        </TabItem>
+                    </TabControl>
+
+                    <TabControl  TabStripPlacement="Right"  Grid.Column="1">
+                        <TabControl.Resources>
+                            <Style TargetType="{x:Type TabItem}">
+                                <Setter Property="HeaderTemplate">
+                                    <Setter.Value>
+                                        <DataTemplate>
+                                            <ContentPresenter Content="{TemplateBinding Content}">
+                                                <ContentPresenter.LayoutTransform>
+                                                    <RotateTransform Angle="90" />
+                                                </ContentPresenter.LayoutTransform>
+                                            </ContentPresenter>
+                                        </DataTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Padding" Value="3" />
+                            </Style>
+                        </TabControl.Resources>
+                                                
+                        <TabItem Header="Original"   Style="{StaticResource righttabs}">
+                            <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto" >
+                            <ItemsControl Name="dg4"      ItemsSource="{Binding TargetData}" />
+                            </ScrollViewer>
+                        </TabItem>
+                        
+                        <TabItem Header="Potential Matches"  Style="{StaticResource righttabs}">
+                            <ListView Margin="10" Name="lvUsers"   ItemsSource="{Binding PotentialMatchData,Mode=OneWay}">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Header="Name" Width="200" DisplayMemberBinding="{Binding Source}" />
+                                        <GridViewColumn Header="IsMatch" Width="50"  >
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <CheckBox HorizontalAlignment="Center" Height="20" Width="20"  IsChecked="{Binding IsMatch, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn Header="Matches" Width="Auto">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <ListBox ItemsSource="{Binding Matches }" Width="1000"  >
+                                                 
+                                                        <ListBox.ItemContainerStyle>
+                                                            <Style TargetType="{x:Type ListBoxItem}">
+                                                                <Setter Property="Padding" Value="0"/>
+                                                                <Setter Property="IsSelected" Value="{Binding IsSelected,Mode=TwoWay}"  />
+                                                            </Style>
+                                                        </ListBox.ItemContainerStyle>
+                                                        <ListBox.ItemTemplate>
+                                                            <DataTemplate>
+                                                                <TextBlock Width="100" Text ="{Binding Object}"/>
+                                                            </DataTemplate>
+                                                        </ListBox.ItemTemplate>
+                                                        <ListBox.ItemsPanel>
+                                                            <ItemsPanelTemplate>
+                                                                <UniformGrid Rows="1"></UniformGrid>
+                                                            </ItemsPanelTemplate>
+                                                        </ListBox.ItemsPanel>
+                                                    </ListBox>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </TabItem>
+
+                        <TabItem Header="No Matches"  Style="{StaticResource righttabs}">
+                            <ListView Margin="10"    ItemsSource="{Binding UnMatchedData,Mode=OneWay}">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Header="Name" Width="200" DisplayMemberBinding="{Binding Source}" />
+                                        <GridViewColumn Header="IsMatch" Width="50"  >
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <CheckBox HorizontalAlignment="Center" IsChecked="{Binding IsMatch, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn Header="Matches" Width="Auto">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <ListBox ItemsSource="{Binding Matches }" Width="1000"  >
+
+                                                        <ListBox.ItemContainerStyle>
+                                                            <Style TargetType="{x:Type ListBoxItem}">
+                                                                <Setter Property="Padding" Value="0"/>
+                                                                <Setter Property="IsSelected" Value="{Binding IsSelected}"/>
+                                                            </Style>
+                                                        </ListBox.ItemContainerStyle>
+                                                        <ListBox.ItemTemplate>
+                                                            <DataTemplate>
+                                                                <TextBlock Width="100" Text ="{Binding Object}"/>
+                                                            </DataTemplate>
+                                                        </ListBox.ItemTemplate>
+                                                        <ListBox.ItemsPanel>
+                                                            <ItemsPanelTemplate>
+                                                                <UniformGrid Rows="1"></UniformGrid>
+                                                            </ItemsPanelTemplate>
+                                                        </ListBox.ItemsPanel>
+                                                    </ListBox>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </TabItem>
+
+                        <TabItem Header="Matches"  Style="{StaticResource righttabs}">
+                            <ListView Margin="10"    ItemsSource="{Binding MatchedData,Mode=OneWay}">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Header="Name" Width="200" DisplayMemberBinding="{Binding Source}" />
+                                        <GridViewColumn Header="Match" Width="Auto" DisplayMemberBinding="{Binding Target}" />
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </TabItem>
+                    </TabControl>
+                </Grid>
+            </TabItem>
+
+
+            <TabItem Header="Output" FontWeight="Bold" MinWidth="80">
+                <ListView Margin="10"  ItemsSource="{Binding OutputData,Mode=OneWay}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Name" Width="200" DisplayMemberBinding="{Binding Source}" />
+                            <GridViewColumn Header="Match" Width="200" DisplayMemberBinding="{Binding Target}" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </TabItem>
+            
+            
+            <TabItem Header="Settings" Height="30"  FontWeight="Bold" MinWidth="80">
+                <p:PropertyGrid  
+                    SelectedObject="{Binding }" 
+                    ShowDeclaredOnly="True" />
+            </TabItem>
+
+        </TabControl>
+
+
+
+
+
+        <!--<UniformGrid Grid.Column="1"  Rows="1"  >
+            <p:PropertyGrid SelectedObject="{Binding ElementName=dg1, Path=SelectedItem.Odds}"/>
+
+        </UniformGrid>-->
+
+        <!--<DataGrid Grid.Row="1" Grid.Column="1" VerticalScrollBarVisibility="Auto" ItemsSource="{Binding OutputTable.DefaultView}"/>-->
+
+
+        <!--<DataGrid  Margin="2" Grid.Row="2" Grid.Column="1"  ColumnWidth="*" 
+                   ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                   ScrollViewer.HorizontalScrollBarVisibility="Auto"  
+                   ItemsSource="{Binding ElementName=dg1, Path=SelectedItem.OddsTable}">
+            <DataGrid.Resources>
+                <Style x:Key="DataGridBase" TargetType="Control">
+                    <Setter Property="LayoutTransform">
+                        <Setter.Value>
+                            <TransformGroup>
+                                <RotateTransform Angle="-90" />
+                                <ScaleTransform ScaleX="1" ScaleY="-1" />
+                            </TransformGroup>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="TextOptions.TextFormattingMode" Value="Display" />
+                </Style >
+                <Style TargetType="DataGridCell" BasedOn="{StaticResource DataGridBase}"/>
+                <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource DataGridBase}"/>
+                <Style TargetType="DataGridRowHeader" BasedOn="{StaticResource DataGridBase}"/>
+            </DataGrid.Resources>
+
+            <DataGrid.LayoutTransform>
+                <TransformGroup>
+                    <RotateTransform Angle="90" />
+                    <MatrixTransform Matrix="-1, 0, 0, 1, 0, 0" />
+                </TransformGroup>
+            </DataGrid.LayoutTransform>
+            <DataGrid.RowDetailsTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <StackPanel.LayoutTransform>
+                            <TransformGroup>
+                                <RotateTransform Angle="90" />
+                                <MatrixTransform Matrix="-1, 0, 0, 1, 0, 0" />
+                            </TransformGroup>
+                        </StackPanel.LayoutTransform>
+                        <TextBlock Height="100" Text="Binding Image" />
+                    </StackPanel>
+                </DataTemplate>
+            </DataGrid.RowDetailsTemplate>
+        </DataGrid>-->
+
+    </Grid>
+</UserControl>

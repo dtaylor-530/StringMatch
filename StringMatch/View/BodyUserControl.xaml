@@ -14,13 +14,13 @@
 
 
 
-                <Style TargetType="ScrollViewer">
-                    <Setter Property="scroll:ScrollSynchronizer.ScrollGroup" Value="Group1" />
-                </Style>
-       
-            
-            
-            <Style x:Key="righttabs"  TargetType="{x:Type TabItem}">
+        <Style TargetType="ScrollViewer">
+            <Setter Property="scroll:ScrollSynchronizer.ScrollGroup" Value="Group1" />
+        </Style>
+
+
+
+        <Style x:Key="righttabs"  TargetType="{x:Type TabItem}">
             <Setter Property="HeaderTemplate">
                 <Setter.Value>
                     <DataTemplate>
@@ -51,10 +51,11 @@
 
 
         <local:StringToBrushConverter x:Key="stringToBrush" />
+
         <Style x:Key="MaleFemaleStyle" TargetType="DataGridCell">
             <Setter Property="Background" Value="{Binding Path=Gender, Converter={StaticResource stringToBrush}}" />
         </Style>
-        
+
     </UserControl.Resources>
     <Grid>
 
@@ -68,7 +69,7 @@
 
 
 
-        
+
         <TabControl>
             <TabItem Header="Main" FontWeight="Bold" MinWidth="80">
                 <Grid>
@@ -86,9 +87,14 @@
                             <ListBox Name="dg144"  Margin="6"   
                   scroll:ScrollSynchronizer.ScrollGroup="Group1"
                   ScrollViewer.VerticalScrollBarVisibility="Auto" 
-                  ItemsSource="{Binding SourceData}"  />
-           
-               </TabItem>
+                  ItemsSource="{Binding SourceData}"  >
+                                <!--<ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Ellipse Fill="Red" Height="20" Width="20"></Ellipse>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>-->
+                            </ListBox>
+                        </TabItem>
                         <!--<TabItem Header="UnMatched" FontWeight="Bold"  Style="{StaticResource lefttabs}">
 
                             <ListBox Name="dg133"  Margin="6"   
@@ -105,7 +111,7 @@
                   ItemsSource="{Binding SourceData}"  />
 
                         </TabItem>-->
-                        </TabControl>
+                    </TabControl>
 
                     <TabControl  TabStripPlacement="Right"  Grid.Column="1">
 
@@ -137,29 +143,45 @@
                   ItemsSource="{Binding UnMatchedData}" />
                         </TabItem>
 
+                        <!--<TabItem Header="Potential Matches"  Style="{StaticResource righttabs}">
+
+                            <ListBox   Margin="6"     
+                  ItemsSource="{Binding PotentialMatchData}"  >
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Ellipse Fill="Red" Height="20" Width="20"></Ellipse>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </TabItem>-->
+
                         <TabItem Header="Potential Matches"  Style="{StaticResource righttabs}">
-                            <DataGrid Name="dgPotential" Grid.Column="1"   ColumnWidth="*"    ItemsSource="{Binding PotentialMatchData}" AutoGenerateColumns="False"
+
+  
+                        <DataGrid Name="dgPotential" Grid.Column="1"   ColumnWidth="*"    
+                                      ItemsSource="{Binding PotentialMatchData,Mode=OneWay}"
+                                     AutoGenerateColumns="False"
                                      CanUserAddRows="False" GridLinesVisibility="Horizontal"
-                                                       scroll:ScrollSynchronizer.ScrollGroup="Group1"
-                        IsReadOnly="true"  
+                                     scroll:ScrollSynchronizer.ScrollGroup="Group1"
+                                     IsReadOnly="true"  
                                       PreviewMouseDown="dgPotential_PreviewMouseDown"
                                       PreviewMouseDoubleClick="DataGrid_MouseDoubleClick" IsSynchronizedWithCurrentItem="true" 
                                 CellEditEnding="dataGrid_CellEditEnding"  CurrentCellChanged="dataGrid_CurrentCellChanged"
                                       >
                                 <DataGrid.Columns>
-                                <DataGridCheckBoxColumn Width="*" Header="IsMatch" Binding="{Binding IsMatch,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-                                <!--<DataGridTextColumn Width="*" Header="Source" Foreground="DarkCyan" Binding="{Binding Source}"/>-->
-                                <DataGridTextColumn Width="*" Header="Match1" Binding="{Binding Match1}"/>
-                                    <DataGridTextColumn Foreground="DarkGray" Width="*" Header="Match2" Binding="{Binding Match2}"/>
-                                    <DataGridTextColumn Foreground="DarkGray" Width="*" Header="Match3" Binding="{Binding Match3}"/>
-                                    <DataGridTextColumn Foreground="DarkGray" Width="*" Header="Match4" Binding="{Binding Match4}"/>
-                                    <DataGridTextColumn Foreground="DarkGray" Width="*" Header="Match5" Binding="{Binding Match5}"/>
-                                    <DataGridTextColumn Foreground="DarkGray" Width="*" Header="Match6" Binding="{Binding Match6}"/>
-                                    <DataGridTextColumn Foreground="DarkGray" Width="*" Header="Match7" Binding="{Binding Match7}"/>
-                                    </DataGrid.Columns>
+                                    <DataGridTextColumn Foreground="DarkGray" Width="*" Header="Source" Binding="{Binding Source}"/>
+                                    <DataGridCheckBoxColumn Width="*" Header="IsMatch" Binding="{Binding IsMatch,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                    <DataGridTextColumn Width="*" Header="Match1" Binding="{Binding Match1,Mode=OneWay}"/>
+                                    <DataGridTextColumn Foreground="DarkGray" Width="*" Header="Match2" Binding="{Binding Match2,Mode=OneWay}"/>
+                                    <DataGridTextColumn Foreground="DarkGray" Width="*" Header="Match3" Binding="{Binding Match3,Mode=OneWay}"/>
+                                    <DataGridTextColumn Foreground="DarkGray" Width="*" Header="Match4" Binding="{Binding Match4,Mode=OneWay}"/>
+                                    <DataGridTextColumn Foreground="DarkGray" Width="*" Header="Match5" Binding="{Binding Match5,Mode=OneWay}"/>
+                                    <DataGridTextColumn Foreground="DarkGray" Width="*" Header="Match6" Binding="{Binding Match6,Mode=OneWay}"/>
+                                    <DataGridTextColumn Foreground="DarkGray" Width="*" Header="Match7" Binding="{Binding Match7,Mode=OneWay}"/>
+                                </DataGrid.Columns>
 
-                                        <!--CellStyle="{StaticResource MaleFemaleStyle}"-->
-                                <!--SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}" SelectionUnit="Cell"-->
+                                <!--CellStyle="{StaticResource MaleFemaleStyle}"
+                                SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}" SelectionUnit="Cell"-->
                                 <!--<DataGrid.CellStyle>
                                     <Style TargetType="DataGridCell">
                                         <EventSetter Event="PreviewMouseDown" Handler="b1SetColor"/>
@@ -167,15 +189,17 @@
                                 </DataGrid.CellStyle>-->
                                 <!--<DataGrid.RowDetailsTemplate>
                                     <DataTemplate>
-                                        --><!--<TextBlock Text="{Binding Details}" Margin="10" />--><!--
+                                        
+                                <TextBlock Text="{Binding Details}" Margin="10" />
+                                
                                     </DataTemplate>
                                 </DataGrid.RowDetailsTemplate>-->
-                                
+
                             </DataGrid>
                         </TabItem>
 
 
-    
+
 
                     </TabControl>
 
